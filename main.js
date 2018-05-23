@@ -50,6 +50,10 @@ thinks this image has Guy Fieri in it, return true.
 //   }
 // }
 
+
+/*
+TODO use image annotate request instead of two separate calls.
+*/
 function webDetection(fileName) {
   console.log(`starting detection on ${fileName}`);
   return client.webDetection(fileName) /* TODO rename this, it's confusing*/
@@ -84,33 +88,34 @@ function webDetection(fileName) {
 
 /*
 URL route -- GET
+TODO This is broken for now (something on google's end?) worked in 0.17.0
 */
-app.get('/', (req, res) => {
-  console.log(req.url);
-  var url_parts = url.parse(req.url, true);
-  var query = url_parts.query;
-  console.log(`Fetching ${query.url}`);
-
-  webDetection(query.url).then(isGFmeme => {
-    console.log('is it a meme?',isGFmeme);
-
-    console.log('detection done');
-    if ((isGFmeme != undefined)) {
-      if (isGFmeme) {
-        res.status('200').send('Spicy')
-      } else {
-        res.status('200').send('Lame')
-      }
-    } else {
-      res.status('400').send('Something went wrong.')
-    }
-
-  })
-  .catch(err => {
-    console.log(err);
-    res.status('500').send('Cannot complete request')
-  })
-});
+// app.get('/', (req, res) => {
+//   console.log(req.url);
+//   var url_parts = url.parse(req.url, true);
+//   var query = url_parts.query;
+//   console.log(`Fetching ${query.url}`);
+//
+//   webDetection(query.url).then(isGFmeme => {
+//     console.log('is it a meme?',isGFmeme);
+//
+//     console.log('detection done');
+//     if ((isGFmeme != undefined)) {
+//       if (isGFmeme) {
+//         res.status('200').send('Spicy')
+//       } else {
+//         res.status('200').send('Lame')
+//       }
+//     } else {
+//       res.status('400').send('Something went wrong.')
+//     }
+//
+//   })
+//   .catch(err => {
+//     console.log(err);
+//     res.status('500').send('Cannot complete request')
+//   })
+// });
 
 /*
 Upload Route -- POST
@@ -118,6 +123,7 @@ TODO -- DRY this up.
 */
 app.route('/upload')
 .post( function(req, res){
+  console.log(req.file);
   var file = req.file.path;
 
   webDetection(file).then(isGFmeme => {

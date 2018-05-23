@@ -45,41 +45,78 @@ thinks this image has Guy Fieri in it, return true.
 //   }
 // }
 
-function webDetection(fileName) {
-  console.log("starting detection");
-  return client.webDetection(fileName)
-  .then(entityResults => {
-    return client.textDetection(fileName)
-    .then(textResults => {
-      if (entityResults[0].error) {
-        throw new Error(entityResults[0].error.message);
-      } else {
-        const fullText = textResults[0].fullTextAnnotation;
-        const entities = entityResults[0].webDetection.bestGuessLabels[0]
+// const request = require('request-promise-native').defaults({
+//   encoding: 'base64'
+// })
+// /*TODO this is borked for now.*/
+// function webDetection(fileName) {
+//   console.log("starting detection");
+//   //Download the image to the cloudfunction because google...
+//   return request(fileName)
+//   .then(imgData => {
+//     const imageAnnotationRequest = {
+//       "requests":[
+//         {
+//           "image":{
+//             "content": imgData
+//           },
+//           "features":[
+//             {
+//               "type": "WEB_DETECTION"
+//             },
+//             {
+//               "type": "TEXT_DETECTION"
+//             }
+//           ]
+//         }
+//       ]
+//     }
+//
+//     return client.annotateImage(imageAnnotationRequest)
+//     .then(annotationResults => {
+//       console.log(annotationResults);
+//     })
+//     return true;
+//   })
+// }
 
-        if ( ( fullText && fullText.text.toLowerCase().includes('flavortown') ) ||
-             ( entities && entities.label.includes('fieri') ) ) {
-               console.log(true);
-          return true;
-        } else {
-          return false;
-        }
-      }
-    })
-    .catch(err => {
-      console.error('ERROR:', err);
-    });
-  })
-  .catch(err => {
-      console.error('ERROR:', err);
-    });
-}
-
+  //   return client.webDetection(fileName)
+  //   .then(entityResults => {
+  //     return client.textDetection(fileName)
+  //     .then(textResults => {
+  //       console.log(entityResults[0].error);
+  //       if (entityResults[0].error) {
+  //         throw new Error(entityResults[0].error.message);
+  //       } else {
+  //         const fullText = textResults[0].fullTextAnnotation;
+  //         const entities = entityResults[0].webDetection.bestGuessLabels[0]
+  //
+  //         if ( ( fullText && fullText.text.toLowerCase().includes('flavortown') ) ||
+  //              ( entities && entities.label.includes('fieri') ) ) {
+  //           console.log(true);
+  //           return true;
+  //         } else {
+  //           return false;
+  //         }
+  //       }
+  //     })
+  //   .catch(err => {
+  //     console.error('ERROR:', err);
+  //   });
+  // })
+  // .catch(err => {
+  //     console.error('ERROR:', err);
+  //   });
+  // })
+// .catch(err => {
+//     console.error('ERROR:', err);
+//   });
+// }
 
 /*
 Use CORS and Multer for files
 */
-app.use(multer({dest:'./uploads/'}).single('file'));
+app.use(multer({dest:'/tmp/uploads/'}).single('file'));
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
