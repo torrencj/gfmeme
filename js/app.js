@@ -103,7 +103,7 @@ function dropHandler(ev) {
 
         //Send the file to the backend.
         $.ajax({
-          url:'https://us-central1-trans-grid-168913.cloudfunctions.net/GFM',
+          url:'https://us-central1-trans-grid-168913.cloudfunctions.net/GFM/',
           // url:'http://localhost:8000/upload',
           type: 'POST',
           data: formData,
