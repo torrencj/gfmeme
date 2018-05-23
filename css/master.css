@@ -27,10 +27,11 @@ a:hover {
 html,
 body {
   height: 100%;
-  background-color: #666;
-  background-repeat: no-repeat;
-  background-position: right;
-  background-image: url('../img/flavor.png');
+  /* background-color: #999;
+  background-repeat: no-repeat; */
+  /* background-position: right; */
+  background:  url('../img/flavor.png') no-repeat right, linear-gradient(red, yellow);
+  /* background-image: url('../img/flavor.png'); */
 }
 
 body {
@@ -49,7 +50,53 @@ body {
   max-width: 42em;
 }
 
+#input_zone {
+  position: relative;
+}
 
+.hidden{
+  display: none;
+}
+
+.result_overlay {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  font-size: 150px;
+  left: 0;
+  top: 0;
+  background-color: rgba(1,1,1,.8);
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.spicy {
+  font-family: 'Alfa Slab One', cursive;
+  /* background: -webkit-linear-gradient(#ff8100, #ff2323);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
+  color: #dc3545;
+}
+
+.lame {
+  color: #009dff;
+  font-family: 'Gloria Hallelujah', cursive;
+}
+.loader_overlay {
+  position: absolute;
+  height: 400px;
+  width: 100%;
+}
+.loader {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
 /*
  * Header
  */
@@ -111,3 +158,27 @@ body {
 .mastfoot {
   color: rgba(255, 255, 255, .5);
 }
+
+#drop_zone {
+  /* display: inline-block; */
+  border: 1px solid white;
+  background: rgba(255, 255, 255, 0.3);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  min-height: 50vh;
+  margin:12px
+}
+
+
+#drop_zone.is-dragover {
+  background-color: grey;
+}
+
+/*
+ * Preview
+ */
+
+#drop_zone img{
+  max-height: 50vh
+ }

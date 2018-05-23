@@ -6,6 +6,7 @@
     <title>Guy Fieri Meme Checker</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/master.css">
+    <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIXx/1Ix7fr/////////////////Me36/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABTR//8o7v3//P////3///////////////////8x7fr/Me36/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABS3/f8N4f7/J+79/+f8/f/t/f7/8v7///X+///6////Lu77/zDu+/8J5P//AAAAAAAAAAAAAAAAAAAAAESx+vwapPr/E9P+/xLq/v+/9/3/F+z9/9H5/f/a+/7/4vv9/w3m/v8P6f7/E87//xLS/v8AAAAAAAAAAAAAAAAAAAAAHpT3/xTF//8J5f//Cub+/5Tz+/+g9Pz/q/b8/xLq/v8Q2f7/Dd3+/xW8/f+d3/+FAAAAAAAAAAAAAAAAAAAAAB+H9v8Vtf3/DN7//wzf/v9L7vr/Xe/6/wXj//8J5f//EMz//xTP/v8UyP7/Gar7/wAAAAAAAAAAAAAAAAAAAAAgfvX/Gqb6/xix+/8Yrfv/Me36/zHt+v8N3f7/DN7//xW9/v8UwP7/HZX4/xyZ+P8AAAAAAAAAAAAAAAAAAAAAIXf0/x2X+P8dlvf/HJ35/xDU/v8N1f7/DNf+/xmp+/8Yrfv/H4b2/x6P9/8AAAAAAAAAAAAAAAAAAAAAAAAAACFx8/8fiPb/IIH1/x6N9/8Szv//Es/+/xLR//8cm/n/IHz0/5TC/A0gfvX/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIWvz/yFt8/8gfvX/E8j//xDJ//8fiPb/H4v2/yF19P8AAAAAGHTz/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKnG+2kiZfL/IH71/xTF//8Vxf//IH71/yFt8/8hbvP/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACB/9f8gfvX/IHz1/yB+9f8iZvL/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkVOr/IH71/yB+9f8kXPH/JF7x/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACZF3/8ggPb/JUzk/yVP5v8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJzXU/yc52P8mPdv/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACmuOsSJyvM/wAAAAAAAAAAAAAAAAAAAAAAAAAA/B8AAPAHAADgAwAAwAEAAOABAADgAQAA4AEAAOADAADgCwAA8AsAAPgPAAD8HwAA/B8AAP4fAAD/HwAA/98AAA==" rel="icon" type="image/x-icon" />
   </head>
   <body class="text-center">
 
@@ -13,30 +14,46 @@
     <header class="masthead mb-auto">
       <div class="inner">
         <h1 class="masthead-brand">Is that a Guy Fieri meme?</h1>
-        <!-- <nav class="nav nav-masthead justify-content-center">
-          <a class="nav-link active" href="#">Home</a>
-          <a class="nav-link" href="#">Features</a>
-          <a class="nav-link" href="#">Contact</a>
-        </nav> -->
       </div>
     </header>
 
     <main role="main" class="inner cover">
+      <div class="result_overlay" style="display: none">
+        <p id="result" class="lame">Lame...</p>
+      </div>
       <h3 class="cover-heading">Not sure?</h3>
-      <!-- <p class="lead"></p>
-      <p class="lead"> -->
-        <form class="" action="https://us-central1-trans-grid-168913.cloudfunctions.net/GFM" method="get">
-          <input class="form-control" type="text" name="url" placeholder="Paste an image url">
-          <input class="btn btn-secondary" type="submit" name="" value="Find out">
+
+      <div id="input_zone">
+        <div id="loader_overlay" style="display:none">
+          <img class="loader" src="/img/5.svg" alt="">
+        </div>
+        <form class="box" method="post" action="" enctype="multipart/form-data">
+
+            <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+              <p id="drop_label">Drop your image here.</p>
+              <img id="preview" src="" alt="">
+            </div>
         </form>
-      <!-- </p> -->
+
+        <form class="form" id="urlForm" action="https://us-central1-trans-grid-168913.cloudfunctions.net/GFM" method="get">
+          <input class="form-control" type="text" name="url" placeholder="Or paste a url">
+          <input class="btn btn-secondary" type="submit" name="" value="Find out">
+      </form>
+      </div>
+
     </main>
 
     <footer class="mastfoot mt-auto">
       <div class="inner">
-        <p>Who to blame (besides Guy Fieri): <a href="https://www.github.com/torrenj">John</a>.</p>
+        <p>v2 <a href="https://www.github.com/torrencj/gfmeme">John Torrence</a> </p>
       </div>
     </footer>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" charset="utf-8"></script>
+  <script src="js/app.js" charset="utf-8"></script>
+  <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Architects+Daughter|Gloria+Hallelujah" rel="stylesheet">
+
   </body>
 </html>
