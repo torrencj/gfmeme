@@ -1,5 +1,5 @@
 /*
-Guy Fieri Meme Checker v2 Backend
+Guy Fieri Meme Checker v2 Backend (local version)
 John Torrence 2018 (MIT License)
 
 Accept file uploads with Multer.
@@ -26,92 +26,24 @@ const port = 8000;
 Politely ask Google for who and what is in the photo. If any text includes 'flavortown' or Big G
 thinks this image has Guy Fieri in it, return true.
 */
-// async function webDetection(fileName) {
-//   console.log("starting web detection");
-//   var detectionResult = false;
-//
-//   const entityResults = await client.webDetection(fileName)
-//   const textResults = await client.textDetection(fileName)
-//
-//   const fullText = textResults[0].fullTextAnnotation;
-//   const entities = entityResults[0].webDetection.bestGuessLabels[0]
-//
-//   if ( ( fullText && fullText.text.toLowerCase().includes('flavortown') ) ||
-//        ( entities && entities.label.includes('fieri') ) ) {
-//          console.log(true);
-//     return true;
-//   } else {
-//     return false;
-//   }
-// }
+async function webDetection(fileName) {
+  console.log("starting web detection");
+  var detectionResult = false;
 
-// const request = require('request-promise-native').defaults({
-//   encoding: 'base64'
-// })
-// /*TODO this is borked for now.*/
-// function webDetection(fileName) {
-//   console.log("starting detection");
-//   //Download the image to the cloudfunction because google...
-//   return request(fileName)
-//   .then(imgData => {
-//     const imageAnnotationRequest = {
-//       "requests":[
-//         {
-//           "image":{
-//             "content": imgData
-//           },
-//           "features":[
-//             {
-//               "type": "WEB_DETECTION"
-//             },
-//             {
-//               "type": "TEXT_DETECTION"
-//             }
-//           ]
-//         }
-//       ]
-//     }
-//
-//     return client.annotateImage(imageAnnotationRequest)
-//     .then(annotationResults => {
-//       console.log(annotationResults);
-//     })
-//     return true;
-//   })
-// }
+  const entityResults = await client.webDetection(fileName)
+  const textResults = await client.textDetection(fileName)
 
-  //   return client.webDetection(fileName)
-  //   .then(entityResults => {
-  //     return client.textDetection(fileName)
-  //     .then(textResults => {
-  //       console.log(entityResults[0].error);
-  //       if (entityResults[0].error) {
-  //         throw new Error(entityResults[0].error.message);
-  //       } else {
-  //         const fullText = textResults[0].fullTextAnnotation;
-  //         const entities = entityResults[0].webDetection.bestGuessLabels[0]
-  //
-  //         if ( ( fullText && fullText.text.toLowerCase().includes('flavortown') ) ||
-  //              ( entities && entities.label.includes('fieri') ) ) {
-  //           console.log(true);
-  //           return true;
-  //         } else {
-  //           return false;
-  //         }
-  //       }
-  //     })
-  //   .catch(err => {
-  //     console.error('ERROR:', err);
-  //   });
-  // })
-  // .catch(err => {
-  //     console.error('ERROR:', err);
-  //   });
-  // })
-// .catch(err => {
-//     console.error('ERROR:', err);
-//   });
-// }
+  const fullText = textResults[0].fullTextAnnotation;
+  const entities = entityResults[0].webDetection.bestGuessLabels[0]
+
+  if ( ( fullText && fullText.text.toLowerCase().includes('flavortown') ) ||
+       ( entities && entities.label.includes('fieri') ) ) {
+         console.log(true);
+    return true;
+  } else {
+    return false;
+  }
+}
 
 /*
 Use CORS and Multer for files
@@ -124,7 +56,8 @@ app.use(function(req, res, next) {
 });
 
 /*
-URL route --
+URL route -- GET
+TODO -- This works locally, but not on GCF...
 */
 app.get('/', (req, res) => {
   console.log(req.url);
@@ -155,7 +88,7 @@ app.get('/', (req, res) => {
 
 /*
 Upload Route -- POST
-TODO -- DRY this up.
+TODO -- DRY
 */
 app.route('/upload')
 .post( function(req, res){
